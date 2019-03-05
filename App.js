@@ -1,14 +1,12 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow
- * @lint-ignore-every XPLATJSCOPYRIGHT1
- */
 
 import React, {Component} from 'react';
 import {Platform, StyleSheet, Text, View} from 'react-native';
+import {NativeRouter, Switch, Route} from 'react-router-native';
+import {createStackNavigator, createAppContainer} from 'react-navigation';
+import Splash from './components/splash';
+import Login from './components/login';
+import Register from './components/register';
+
 
 const instructions = Platform.select({
   ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
@@ -19,16 +17,29 @@ const instructions = Platform.select({
 
 type Props = {};
 export default class App extends Component<Props> {
+
+  state = {
+    show_splash: true
+  }
+
+  componentDidMount(){
+      setTimeout(function() { //Start the timer
+        this.setState({show_splash: false}) //After 1 second, set render to true
+    }.bind(this), 3000)
+  }
+
+
+
   render() {
     return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>Welcome to React Native!</Text>
-        <Text style={styles.instructions}>To get started, edit App.js</Text>
-        <Text style={styles.instructions}>{instructions}</Text>
-      </View>
+      <AppStackNavigator />
     );
   }
 }
+
+const AppStackNavigator = createStackNavigator ({
+  Login: { screen: Login }
+})
 
 const styles = StyleSheet.create({
   container: {
