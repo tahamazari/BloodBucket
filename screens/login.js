@@ -9,7 +9,7 @@ class Login extends Component {
                 <Text>This is the Login Screen</Text>
                 <Button 
                     title="Register now!"
-                    onPress={() => push('/register')}
+                    onPress={() => this.props.navigation.navigate('Register')}
                 />
             </View>
         )

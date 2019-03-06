@@ -1,11 +1,9 @@
-
 import React, {Component} from 'react';
 import {Platform, StyleSheet, Text, View} from 'react-native';
-import {NativeRouter, Switch, Route} from 'react-router-native';
 import {createStackNavigator, createAppContainer} from 'react-navigation';
-import Splash from './components/splash';
-import Login from './components/login';
-import Register from './components/register';
+import Splash from './screens/splash.js';
+import Login from './screens/login.js';
+import Register from './screens/register.js';
 
 
 const instructions = Platform.select({
@@ -16,30 +14,27 @@ const instructions = Platform.select({
 });
 
 type Props = {};
+
+const AppStackNavigator = createStackNavigator (
+  {
+    Login: { screen: Login },
+    Register: {screen: Register},
+  },
+  {
+    initialRouteName: 'Login'
+  }
+)
+
+const AppContainer = createAppContainer(AppStackNavigator);
+
 export default class App extends Component<Props> {
-
-  state = {
-    show_splash: true
-  }
-
-  componentDidMount(){
-      setTimeout(function() { //Start the timer
-        this.setState({show_splash: false}) //After 1 second, set render to true
-    }.bind(this), 3000)
-  }
-
-
-
+  state = {}
   render() {
     return (
-      <AppStackNavigator />
+      <AppContainer />
     );
   }
 }
-
-const AppStackNavigator = createStackNavigator ({
-  Login: { screen: Login }
-})
 
 const styles = StyleSheet.create({
   container: {
